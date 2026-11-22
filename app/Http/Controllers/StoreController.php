@@ -23,7 +23,9 @@ class StoreController extends Controller
         $categoryCounts = array_fill_keys(config('store.categories'), 0);
 
         foreach ($products as $product) {
-            $categoryCounts[$product['filter_key']]++;
+            if (isset($categoryCounts[$product['filter_key']])) {
+                $categoryCounts[$product['filter_key']]++;
+            }
         }
 
         $promotionalProducts = array_values(array_filter($products, static function (array $p): bool {
